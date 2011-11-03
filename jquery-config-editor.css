@@ -1,0 +1,41 @@
+#editor-hint {
+    display: none;
+    position: fixed;
+    background: white;
+    padding: .3em;
+}
+
+.ui-config-editor {
+    width: 70em;
+    background-color: #F2F5F7;
+    padding: .3em;
+    position: relative;
+}
+
+.ui-config-editor pre {
+    margin: 0;
+    width: 98.7%;
+    display: block;
+    min-height: 1.5em;
+}
+
+.ui-config-editor .comment {
+    padding: .5em;
+    font-style: italic;
+    color: darkgray;
+}
+
+.ui-config-editor .section-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 110%;
+}
+
+.ui-config-editor .section-content {
+    overflow: auto;
+    display: none;
+    overflow-x: auto;
+    overflow-y: auto;
+    display: none;
+    padding: 11px 0;
+}
