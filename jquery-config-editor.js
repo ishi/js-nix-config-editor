@@ -538,7 +538,7 @@
                     });
 //                    $org.show();
 //                    $org.after($('<textarea rows="40" cols="80" >' + data.replace(/\n$/, '') + '</textarea>'));
-                    return false;
+                    // return false;
                 });
                 debug = true;
                 
