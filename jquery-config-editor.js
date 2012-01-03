@@ -167,8 +167,7 @@
                     ret.push(this.getForDisplay().replace(/\n/, '<br />'));
                     return true;
                 } );
-                return '<pre class="comment" data-editor-type="comment" data-editor-process-state="'
-                        + this.prevState + '">'
+                return '<pre class="comment" data-editor-type="comment" data-editor-process-state="' + this.prevState + '">'
                         + ret.join('')
                         + '</pre>';
             }
@@ -204,8 +203,7 @@
             this.getForDisplay = function ( ) {
                 var ret = [];
                 $.each(this.elements, function () {return ret.push(this.getForDisplay().replace(/\n/, '<br />'))} );
-                return '<pre data-editor-type="options" data-editor-process-state="'
-                    + this.prevState + '">'
+                return '<pre data-editor-type="options" data-editor-process-state="' + this.prevState + '">'
                     + ret.join('')
                     + '</pre>'
             }
@@ -323,50 +321,6 @@
         
     }
     
-    function getCharacterOffsetWithin(range, node) {
-        var treeWalker = document.createTreeWalker(
-            node,
-            NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
-            function(node) {
-                var nodeRange = document.createRange();
-                nodeRange.selectNodeContents(node);
-                return nodeRange.compareBoundaryPoints(Range.END_TO_END, range) < 0 ?
-                    NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-            },
-            false
-        );
-
-        var charCount = 0;
-        while (treeWalker.nextNode()) {
-            if ( treeWalker.currentNode.nodeType == 3 ) {
-                charCount += treeWalker.currentNode.length;
-            } else if ( treeWalker.currentNode.nodeName.toLowerCase() == 'br' ) {
-                charCount += 1;
-            }
-        }
-        if ( range.startContainer.nodeType == 3 ) {
-            charCount += range.startOffset;
-        } else if ( range.startContainer.nodeName.toLowerCase() == 'br' ) {
-            charCount += 1;
-        }
-        return charCount;
-    }
-    
-    var getCursorPos = function ( node ) {
-        var range;
-        if (window.getSelection) {  // all browsers, except IE before version 9
-            var selection = window.getSelection();
-            if (selection.rangeCount == 0) {
-                return 0;
-            }
-            range = selection.getRangeAt (0);
-        } else if (document.selection) {   // Internet Explorer
-            range = document.selection.createRange();
-        }
-        
-        return getCharacterOffsetWithin(range, node);
-    }
-
     var collapseComment = function ( node ) {
         var $this = $(node), comment = split($this.html());
         if ( 2 < comment.length ) {
@@ -398,8 +352,7 @@
         elements.find('[data-editor-process-state]')
             .keydown(function (event) {
                 $this = $(this);
-                var cursorPos = getCursorPos(this),
-                    text = split($this.html()).join('\n').replace(/\n$/, '');
+                var text = split($this.html()).join('\n').replace(/\n$/, '');
                 switch (event.which) {
                     case 8:     // Backspace
                     case 46:    // Delete
