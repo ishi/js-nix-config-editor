@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>index</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Live session user" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		
+		<link href="smoothness/jquery-ui-1.8.16.custom.css" media="screen" rel="stylesheet" type="text/css" />
+		<script src="jquery-1.7.1.min.js" type="text/javascript"></script><br/>
+		<script src="jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+		
+		<link href="jquery-config-editor.css" media="screen" rel="stylesheet" type="text/css" />
+		<script src="mclexer.js" type="text/javascript"></script>
+		<script src="jquery-config-editor.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div>
+			<textarea cols="24" id="conf-editor" name="conf-editor" rows="6"># This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+	iface eth0 inet static
+	address 192.168.123.2
+	netmask 255.255.255.0
+	broadcast 192.168.123.255
+	gateway 192.168.123.1
+
+source /etc/network/interfaces.eth1
+</textarea>
+
+<script type="text/javascript">
+	$(function () {
+		$("#conf-editor").confeditor();
+	})
+</script>
+		</div>
+	</body>
+</html>

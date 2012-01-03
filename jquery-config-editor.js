@@ -128,7 +128,7 @@
         
     var Parser = function ( ) {
         
-        this.emptyOption = '<pre contenteditable="true" data-editor-type="options" data-editor-process-state="section"><br /></pre>';
+        this.emptyOption = '<pre data-editor-type="options" data-editor-process-state="section"><br /></pre>';
         
         this.state = {
             comment: 'comment',
@@ -167,8 +167,7 @@
                     ret.push(this.getForDisplay().replace(/\n/, '<br />'));
                     return true;
                 } );
-                return '<pre class="comment" contenteditable="true"'
-                        + ' data-editor-type="comment" data-editor-process-state="'
+                return '<pre class="comment" data-editor-type="comment" data-editor-process-state="'
                         + this.prevState + '">'
                         + ret.join('')
                         + '</pre>';
@@ -205,7 +204,7 @@
             this.getForDisplay = function ( ) {
                 var ret = [];
                 $.each(this.elements, function () {return ret.push(this.getForDisplay().replace(/\n/, '<br />'))} );
-                return '<pre contenteditable="true" data-editor-type="options" data-editor-process-state="'
+                return '<pre data-editor-type="options" data-editor-process-state="'
                     + this.prevState + '">'
                     + ret.join('')
                     + '</pre>'
@@ -379,6 +378,7 @@
     var initElements = function ( elements ) {
         elements.find('[data-editor-type="comment"]')
             .each(function () {
+            	alert('Komentarz: ' + $(this).html());
                 $(this).data('editor-save-value', $(this).html());
                 collapseComment(this);
             }).focus(function ( ) {
@@ -386,7 +386,7 @@
             }).blur(function () {
                 $(this).data('editor-save-value', $(this).html());
             }).mouseover(function ( event ) {
-                if ($(this).data('editor-disable-mglobalouseover')) return;
+                if ($(this).data('editor-disable-mouseover')) return;
                 $('#editor-hint')
                     .html($(this).data('editor-save-value').replace(/^#/, '').replace(/\n#/g,'\n'))
                     .css('left', event.pageX - window.scrollX)
@@ -409,38 +409,6 @@
                             el.focus();
                             colapseElements ( el );
                         }
-                        break;
-                    case 40: // down
-                        if (!text.substr(cursorPos).match(/\n/)) {
-                            $(this).data('editor-focus', 'down');
-                        }
-                        break;
-                    case 39: // right
-                        if (!text.substr(cursorPos).length) {
-                            $(this).data('editor-focus', 'down');
-                        }
-                        break;
-                    case 38: // up
-                        if (!text.substr(0, cursorPos).match(/\n/)) {
-                            $(this).data('editor-focus', 'up');
-                        }
-                        break;
-                    case 37: // left
-                        if (!text.substr(0, cursorPos).length) {
-                            $(this).data('editor-focus', 'up');
-                        }
-                        break;
-                }
-            }).keyup(function (event) {
-                $this = $(this);
-                switch ($(this).data('editor-focus')) {
-                    case 'down':
-                        if (!$this.next('[contenteditable="true"]').length) return
-                        $this.next('[contenteditable="true"]').focus();//.after(flag);
-                        break;
-                    case 'up':
-                        if (!$this.prev('[contenteditable="true"]').length) return
-                        $this.prev('[contenteditable="true"]').focus();//.before(flag);
                         break;
                 }
             }).blur(function ( ) {
@@ -503,7 +471,7 @@
                 var src = $org.val();
                 tokenize( src );
                     
-                var html = '<div class="ui-config-editor">';
+                var html = '<div class="ui-config-editor" contenteditable="true">';
                 var parser = new Parser(),
                     content = parser.join().parse( Tokens );
                 if (!content) {
@@ -536,23 +504,14 @@
                                 data += split($(this).html()).join('\n');
                         }
                     });
-//                    $org.show();
-//                    $org.after($('<textarea rows="40" cols="80" >' + data.replace(/\n$/, '') + '</textarea>'));
-                    // return false;
+                    $org.show();
+                    $org.after($('<textarea rows="40" cols="80" >' + data.replace(/\n$/, '') + '</textarea>'));
+                    return false;
                 });
                 debug = true;
                 
             })
         },
-        show : function( ) {
-			
-        },
-        hide : function( ) {
-			
-        },
-        update : function( content ) {
-			
-        }
     };
 
     $.fn.confeditor = function( method ) {
