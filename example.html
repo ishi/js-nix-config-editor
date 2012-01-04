@@ -14,31 +14,47 @@
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		
 		<link href="smoothness/jquery-ui-1.8.16.custom.css" media="screen" rel="stylesheet" type="text/css" />
-		<script src="jquery-1.7.1.min.js" type="text/javascript"></script><br/>
+		<script src="jquery-1.7.1.min.js" type="text/javascript"></script>
 		<script src="jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 		
 		<link href="jquery-config-editor.css" media="screen" rel="stylesheet" type="text/css" />
 		<script src="mclexer.js" type="text/javascript"></script>
 		<script src="jquery-config-editor.js" type="text/javascript"></script>
+		<script src="http://api.jquery.com/scripts/events.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<div>
 			<textarea cols="24" id="conf-editor" name="conf-editor" rows="6"># This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
 
-# The loopback network interface
+#~0 The loopback network interface #=0
+auto lo
+iface lo inet loopback
+#~=/
+
+#~1 The loopback network interface #=1
+auto lo
+iface lo inet loopback
+#=1
 auto lo
 iface lo inet loopback
 
-# The primary network interface
-auto eth0
-	iface eth0 inet static
-	address 192.168.123.2
-	netmask 255.255.255.0
-	broadcast 192.168.123.255
-	gateway 192.168.123.1
+#~1 The loopback network interface #=1
+auto lo
+iface lo inet loopback
+#=1
+auto lo
+iface lo inet loopback
+#=/
+#~=/
 
-source /etc/network/interfaces.eth1
+#=/
+#~=/
+
+#~2 The loopback network interface #=2
+auto lo
+iface lo inet loopback
+#~=/
 </textarea>
 
 <script type="text/javascript">

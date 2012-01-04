@@ -12,30 +12,74 @@
     position: relative;
 }
 
-.ui-config-editor pre {
+.ui-config-editor p {
     margin: 0;
-    width: 98.7%;
-    display: block;
-    min-height: 1.5em;
+    padding: 0;
+    width: 100%;
 }
 
 .ui-config-editor .comment {
-    padding: .5em;
     font-style: italic;
     color: darkgray;
 }
 
-.ui-config-editor .section-header {
-    text-align: center;
-    font-weight: bold;
-    font-size: 110%;
+.ui-config-editor .size {
+	font-size: 95%;
 }
 
-.ui-config-editor .section-content {
-    overflow: auto;
-    display: none;
-    overflow-x: auto;
-    overflow-y: auto;
-    display: none;
-    padding: 11px 0;
+.ui-config-editor .size0 {
+	font-size: 19px;
 }
+
+.ui-config-editor .size1 {
+	font-size: 18px;
+}
+
+.ui-config-editor .size2 {
+	font-size: 17px;
+}
+
+.ui-config-editor .size3 {
+	font-size: 16px;
+}
+
+.ui-config-editor .size4 {
+	font-size: 15px;
+}
+
+.ui-config-editor .size5 {
+	font-size: 14px;
+}
+.ui-config-editor .size6 {
+	font-size: 13px;
+}
+
+.ui-config-editor .size7 {
+	font-size: 12px;
+}
+
+.ui-config-editor .size8 {
+	font-size: 11px;
+}
+
+.ui-config-editor .size9 {
+	font-size: 10px;
+}
+
+.ui-config-editor .title {
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #C2C5C7;
+    background: #E2E5F7;
+    padding: 3px;
+    margin-left: 7px;
+}
+
+.ui-config-editor .border {
+    border: 1px solid #C2C5C7;
+    padding: 3px;
+    margin-left: 7px;
+}
+
+
+
