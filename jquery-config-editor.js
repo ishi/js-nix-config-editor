@@ -7,18 +7,18 @@
 (function( $ ) {
     
     Function.prototype.inheritsFrom = function( parentClassOrObject ){ 
-	if ( parentClassOrObject.constructor == Function ) { 
-		//Normal Inheritance 
-		this.prototype = new parentClassOrObject;
-		this.prototype.constructor = this;
-		this.prototype.parent = parentClassOrObject.prototype;
-	} else { 
-		//Pure Virtual Inheritance 
-		this.prototype = parentClassOrObject;
-		this.prototype.constructor = this;
-		this.prototype.parent = parentClassOrObject;
-	} 
-	return this;
+		if ( parentClassOrObject.constructor == Function ) { 
+			//Normal Inheritance 
+			this.prototype = new parentClassOrObject;
+			this.prototype.constructor = this;
+			this.prototype.parent = parentClassOrObject.prototype;
+		} else { 
+			//Pure Virtual Inheritance 
+			this.prototype = parentClassOrObject;
+			this.prototype.constructor = this;
+			this.prototype.parent = parentClassOrObject;
+		} 
+		return this;
     } 
 
     var debug = false;
@@ -40,12 +40,6 @@
     }
     COMMENT.inheritsFrom(TOKEN);
     
-    function HEADER(string) {
-        this.string = string;
-        this.getForDisplay = function ( ) {
-            return string.replace(/=+/g, '').substr(1)
-        }
-    }
     HEADER.inheritsFrom(TOKEN);
     
     function OPTIONS(string) {
@@ -71,10 +65,7 @@
 
     /* Rules. */
     /* Nagłówek */
-    S_INIT (/#=.*(\n|$)/) (function (match,rest,state) {
-        Tokens.push(new HEADER(match[0]));
-        return state.continuation(rest);
-    });
+
     /* Komentarze */
     S_INIT (/#(\n|$)/) (function (match,rest,state) {
         Tokens.push(new COMMENT(match[0]));
@@ -131,10 +122,9 @@
         this.emptyOption = '<pre data-editor-type="options" data-editor-process-state="section"><br /></pre>';
         
         this.state = {
-            comment: 'comment',
-            file: 'file',
-            options: 'options',
-            section: 'section',
+            comment: 	'comment',
+            file: 		'file',
+            options: 	'options',
             s: ['file']
         };
         
@@ -173,26 +163,6 @@
             }
         }
         this.CommentBlock.inheritsFrom(this.Block);
-        
-        this.Section = function ( parser, tokens ) {
-            this.emptyOption = parser.emptyOption;
-            parser.pushState( parser.state.section );
-            var header = tokens.shift( );
-            this.elements = parser._parse( tokens );
-            this.elements.unshift( header );
-            parser.popState( );
-            
-            this.getForDisplay = function ( ) {
-                var ret = [];
-                $.each(this.elements, function () {return ret.push(this.getForDisplay())} );
-                if (1 == ret.length) {
-                    ret.push(this.emptyOption)
-                }
-                return '<h3 class="section-header">' + ret.shift().replace(/\n/, '') + '</h3>'
-                        + '<div class="section-content">' + ret.join('\n') + '</div>'
-            }
-        }
-        this.Section.inheritsFrom(this.Block);
         
         this.Options = function ( parser, tokens ) {
             this.prevState = parser.getState();
@@ -284,9 +254,7 @@
     
     
     var lineSep = /<br[^>]*>/ig;
-    var stripHtml = function ( input ) {
-        return $('<div>' + input + '</div>').text();
-    }
+    var stripHtml = function ( input ) { return $('<div>' + input + '</div>').text(); }
     
     var split = function ( input ) {
         var ret = [], 
@@ -330,25 +298,6 @@
     }
     
     var initElements = function ( elements ) {
-        elements.find('[data-editor-type="comment"]')
-            .each(function () {
-            	alert('Komentarz: ' + $(this).html());
-                $(this).data('editor-save-value', $(this).html());
-                collapseComment(this);
-            }).focus(function ( ) {
-                $(this).html($(this).data('editor-save-value')).mouseout().data('editor-disable-mouseover', true);
-            }).blur(function () {
-                $(this).data('editor-save-value', $(this).html());
-            }).mouseover(function ( event ) {
-                if ($(this).data('editor-disable-mouseover')) return;
-                $('#editor-hint')
-                    .html($(this).data('editor-save-value').replace(/^#/, '').replace(/\n#/g,'\n'))
-                    .css('left', event.pageX - window.scrollX)
-                    .css('top', event.pageY - window.scrollY)
-                    .show();
-            }).mouseout(function () {
-                $('#editor-hint').hide();
-            })
         elements.find('[data-editor-process-state]')
             .keydown(function (event) {
                 $this = $(this);
@@ -431,8 +380,8 @@
                     content = parser.emptyOption;
                 }
                 html += content;
-                html += '<input type="submit" value="Zapisz" />';
                 html += '</div>';
+                html += '<input type="submit" value="Zapisz" />';
                 $org.before(html);
                 $org.hide();
                 
