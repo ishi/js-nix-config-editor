@@ -66,6 +66,7 @@
                 var parseButton = $('<input type="submit" value="Parsuj" />')
                 	.click(function (){
                 		$e.html(_parse($org.val()));
+                		return false;
                 	});
                 // e.keyup(function(e) {
                 	// var $this = $(e.target);
