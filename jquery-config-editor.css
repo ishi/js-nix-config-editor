@@ -1,10 +1,13 @@
 body, html {
 	height: 100%;
+	padding: 0;
+	margin: 0;
 }
 
 .editor-container {
 	width: 100%;
 	height: 100%;
+	margin: 0;
 }
 
 #editor-hint {
@@ -74,8 +77,8 @@ body, html {
 	font-size: 10px;
 }
 
-.ui-config-editor .title {
-    text-align: center;
+.ui-config-editor .title,
+.ui-config-editor .frame-title {
     font-weight: bold;
     border: 1px solid #C2C5C7;
     background: #E2E5F7;
@@ -83,6 +86,18 @@ body, html {
     margin-left: 7px;
 }
 
+.ui-config-editor .title {
+    text-align: center;
+}
+
+.ui-config-editor .background {
+    border: 1px solid #C2C5C7;
+    background: #E2E5F7;
+    padding: 3px;
+    margin-left: 7px;
+}
+
+.ui-config-editor .frame-border,
 .ui-config-editor .border {
     border: 1px solid #C2C5C7;
     padding: 3px;

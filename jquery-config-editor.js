@@ -40,12 +40,19 @@
     
     var _parse = function(html) {
         var t;
+        // Komentarze
         t = html.replace(/#(\s.*?)(\n|$)/g, '<span class="comment">#$1</span>$2');
-        t = t.replace(/#~([0-9]?)(.*?)#=([0-9]?)\n/g, '<div class="frame"><div class="title size$1">$2</div><div class="border size$3">');
-        t = t.replace(/#~([0-9]?)\n/g, '<div class="title size$1">');
+        // Tabelka z tytółem bez tła
+        t = t.replace(/#:([0-9]?)(.*?)#=([0-9]?)\n/g, '<div class="frame-title size$1">$2</div><div class="frame-border size$3">');
+        t = t.replace(/#:=\//g, '</div>')
+        // Tytół
+        t = t.replace(/#:([0-9]?)(.*?)\n/g, '<div class="title size$1">$2</div>');
+        // Tabelka z tłem
+        t = t.replace(/#~([0-9]?)\n/g, '<div class="background size$1">');
+        t = t.replace(/#~\//g, '</div>')
+        // Tabelka bez tła
         t = t.replace(/#=([0-9]?)\n/g, '<div class="border size$1">');
-        t = t.replace(/#~=\//g, '</div></div>')
-        t = t.replace(/#(=|~)\//g, '</div>')
+        t = t.replace(/#=\//g, '</div>')
         return t;
     };
 
@@ -64,12 +71,12 @@
                 
                 $editor = $('<div class="editor-container"></div>');
                 $left = $('<div style="float: left; width:49%; height:90%"></div>')
-                $right = $('<div style="float: right; width:49%; height: 90%; overflow: auto;"></div>')
+                $right = $('<div style="float: right; width:49%; height: 90%;"></div>')
                 $bottom = $('<div style="clear: both; width:100%; height: 10%"></div>')
                 $editor.append($left).append($right).append($bottom);
                 $org.replaceWith($editor);
                     
-                var $e = $('<pre class="ui-config-editor" contenteditable="true" style="height: 100%; width: 98%"></pre>');
+                var $e = $('<pre class="ui-config-editor" contenteditable="true" style="height: 100%; width: 98%; overflow: auto;"></pre>');
                 var $parseButton = $('<input type="submit" value="Parsuj" />')
                 	.click(function (){
                 		$e.html(_parse($org.val()));
