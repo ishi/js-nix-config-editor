@@ -61,9 +61,16 @@
                 $org = $(this);
 				
                 var src = $org.val();
+                
+                $editor = $('<div class="editor-container"></div>');
+                $left = $('<div style="float: left; width:49%; height:90%"></div>')
+                $right = $('<div style="float: right; width:49%; height: 90%; overflow: auto;"></div>')
+                $bottom = $('<div style="clear: both; width:100%; height: 10%"></div>')
+                $editor.append($left).append($right).append($bottom);
+                $org.replaceWith($editor);
                     
-                var $e = $('<pre class="ui-config-editor" contenteditable="true"></pre>');
-                var parseButton = $('<input type="submit" value="Parsuj" />')
+                var $e = $('<pre class="ui-config-editor" contenteditable="true" style="height: 100%; width: 98%"></pre>');
+                var $parseButton = $('<input type="submit" value="Parsuj" />')
                 	.click(function (){
                 		$e.html(_parse($org.val()));
                 		return false;
@@ -72,12 +79,14 @@
                 	// var $this = $(e.target);
 					// $this.html(_parse($this.text()));
                 // });
-                $e.html(_parse(src));
-                $org.after($e);
-                $org.after(parseButton);
-                $org.css('width', '99%');
-                $org.css('height', '200px');
                 
+                $left.append($org);
+                $org.css('width', '98%').css('height', '98%');
+                
+                $e.html(_parse(src));
+                $right.append($e);
+                
+                $bottom.append($parseButton);
                 
                 
                 $('body').append('<div id="editor-hint" class="ui-helper-reset ui-state-default ui-corner-all"></div>');
