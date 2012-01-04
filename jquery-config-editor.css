@@ -90,6 +90,7 @@ body, html {
     text-align: center;
 }
 
+.ui-config-editor .frame-background,
 .ui-config-editor .background {
     border: 1px solid #C2C5C7;
     background: #E2E5F7;

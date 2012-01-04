@@ -45,6 +45,9 @@
         // Tabelka z tytółem bez tła
         t = t.replace(/#:([0-9]?)(.*?)#=([0-9]?)\n/g, '<div class="frame-title size$1">$2</div><div class="frame-border size$3">');
         t = t.replace(/#:=\//g, '</div>')
+        // Tabelka z tytółem z tłem
+        t = t.replace(/#:([0-9]?)(.*?)#~([0-9]?)\n/g, '<div class="frame-title size$1">$2</div><div class="frame-background size$3">');
+        t = t.replace(/#:~\//g, '</div>')
         // Tytół
         t = t.replace(/#:([0-9]?)(.*?)\n/g, '<div class="title size$1">$2</div>');
         // Tabelka z tłem
