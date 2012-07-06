@@ -8,21 +8,47 @@
 		<title>index</title>
 		<meta name="description" content="" />
 		<meta name="author" content="Live session user" />
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- meta name="viewport" content="width=device-width; initial-scale=1.0" / -->
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		
-		<link href="smoothness/jquery-ui-1.8.16.custom.css" media="screen" rel="stylesheet" type="text/css" />
-		<script src="jquery-1.7.1.min.js" type="text/javascript"></script>
-		<script src="jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var Aloha = window.Aloha || ( window.Aloha = {} );
+	
+			Aloha.settings = {
+				bundles: { custom: 'file:///home/ishi/code/js-nix-config-editor/aloha-custom' },
+				locale: 'pl',
+				sidebar: { disabled: true },
+				floatingmenu: {
+					//width: 630, // with of the floating menu; auto calculated when not set
+					behaviour: 'topalign', // 'float' (default), 'topalign', 'append'
+					//element: 'conf-editor', // use with 'append' behaviour option: HTML DOM ID of the element the FM should get the position from
+					pin: false, // boolean if set to true with behaviour 'append' the fm will be pinned to that position and scroll with the window
+					draggable: false, // boolean
+					marginTop: 10, // number in px
+					horizontalOffset: 0, // number in px -- used with 'topalign' behaviour
+					topalignOffset: 0, // number in px -- used with 'topalign' behaviour
+				},
+				contentHandler: {
+					insertHtml: [ 'word', 'generic', 'oembed', 'sanitize' ],
+				}
+			};
+		</script>
 		
-		<link href="jquery-config-editor.css" media="screen" rel="stylesheet" type="text/css" />
-		<script src="mclexer.js" type="text/javascript"></script>
-		<script src="jquery-config-editor.js" type="text/javascript"></script>
+		<script src="aloha/lib/aloha.js" 
+			data-aloha-plugins="	custom/nix-editor,
+						common/contenthandler">
+		</script>
+		<link rel="stylesheet" type="text/css" href="aloha/css/aloha.css">
+		<style>
+			#conf-editor-aloha {
+				margin-top: 100px;
+			}
+		</style>
 	</head>
 	<body>
-			<textarea cols="24" id="conf-editor" name="conf-editor" rows="6">
+		<textarea rows="30" cols="100" id="conf-editor" name="conf-editor" rows="6">
 #:0 Tytuł pliku
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -55,12 +81,19 @@ iface lo inet loopback
 auto lo
 iface lo inet loopback
 #:=/
-</textarea>
 
-<script type="text/javascript">
-	$(function () {
-		$("#conf-editor").confeditor();
-	})
-</script>
+
+
+The loopback network interface
+auto lo
+iface lo inet loopback
+		</textarea>
+
+		<script type="text/javascript">
+			// Make #content editable once Aloha is loaded and ready.
+			Aloha.ready( function() {
+				Aloha.jQuery('#conf-editor').aloha();
+			});
+		</script>
 	</body>
 </html>

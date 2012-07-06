@@ -1,0 +1,106 @@
+body, html {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.editor-container {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+#editor-hint {
+    display: none;
+    position: fixed;
+    background: white;
+    padding: .3em;
+}
+
+.ui-config-editor {
+    background-color: #F2F5F7;
+    padding: .3em;
+    position: relative;
+}
+
+.ui-config-editor p {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.ui-config-editor .comment {
+    font-style: italic;
+    color: darkgray;
+}
+
+.ui-config-editor .size {
+	font-size: 95%;
+}
+
+.ui-config-editor .size0 {
+	font-size: 19px;
+}
+
+.ui-config-editor .size1 {
+	font-size: 18px;
+}
+
+.ui-config-editor .size2 {
+	font-size: 17px;
+}
+
+.ui-config-editor .size3 {
+	font-size: 16px;
+}
+
+.ui-config-editor .size4 {
+	font-size: 15px;
+}
+
+.ui-config-editor .size5 {
+	font-size: 14px;
+}
+.ui-config-editor .size6 {
+	font-size: 13px;
+}
+
+.ui-config-editor .size7 {
+	font-size: 12px;
+}
+
+.ui-config-editor .size8 {
+	font-size: 11px;
+}
+
+.ui-config-editor .size9 {
+	font-size: 10px;
+}
+
+.ui-config-editor .title,
+.ui-config-editor .frame-title {
+    font-weight: bold;
+    border: 1px solid #C2C5C7;
+    background: #E2E5F7;
+    padding: 3px;
+    margin-left: 7px;
+}
+
+.ui-config-editor .title {
+    text-align: center;
+}
+
+.ui-config-editor .frame-background,
+.ui-config-editor .background {
+    border: 1px solid #C2C5C7;
+    background: #E2E5F7;
+    padding: 3px;
+    margin-left: 7px;
+}
+
+.ui-config-editor .frame-border,
+.ui-config-editor .border {
+    border: 1px solid #C2C5C7;
+    padding: 3px;
+    margin-left: 7px;
+}
