@@ -15,9 +15,11 @@
 		
 		<script type="text/javascript">
 			var Aloha = window.Aloha || ( window.Aloha = {} );
-	
+			var loc = location.href;
+			loc = loc.substring(0, loc.lastIndexOf('/'));
+
 			Aloha.settings = {
-				bundles: { custom: './aloha-custom' },
+				bundles: { custom: loc + '/aloha-custom' },
 				locale: 'pl',
 				sidebar: { disabled: true },
 				floatingmenu: {
