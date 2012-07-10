@@ -70,21 +70,23 @@ define([
 					
 					var t, html = editable.getContents();
 					// Komentarze
-					t = html.replace(/#(\s.*?)(\n|$)/g, '<div class="comment editable">$1</div>$2');
-					// Tabelka z tytółem bez tła
+					t = html.replace(/#(\s.*?)\n/g, '<div class="comment editable">$1</div>');
+					// Tabelka z tytułem bez tła
 					t = t.replace(/#:([0-9]?)(.*?)#=([0-9]?)\n/g, '<div class="frame-title size$1">$2</div><div class="frame-border size$3">');
-					t = t.replace(/#:=\//g, '</div>');
-					// Tabelka z tytółem z tłem
+					t = t.replace(/#:=\/\n/g, '</div>');
+					// Tabelka z tytułem z tłem
 					t = t.replace(/#:([0-9]?)(.*?)#~([0-9]?)\n/g, '<div class="frame-title size$1">$2</div><div class="frame-background size$3">');
-					t = t.replace(/#:~\//g, '</div>');
+					t = t.replace(/#:~\/\n/g, '</div>');
 					// Tytół
 					t = t.replace(/#:([0-9]?)(.*?)\n/g, '<div class="title size$1">$2</div>');
 					// Tabelka z tłem
 					t = t.replace(/#~([0-9]?)\n/g, '<div class="background size$1">');
-					t = t.replace(/#~\//g, '</div>');
+					t = t.replace(/#~\/\n/g, '</div>');
 					// Tabelka bez tła
 					t = t.replace(/#=([0-9]?)\n/g, '<div class="border size$1">');
-					t = t.replace(/#=\//g, '</div>');
+					t = t.replace(/#=\/\n/g, '</div>');
+					
+					t = t.replace(/\n/g, '<br class="aloha-end-br"/>');
 					editable.setContents(t);
 				});
 				// apply specific configuration if an editable has been activated
@@ -180,33 +182,6 @@ define([
 								'markup' : jQuery('<div></div>'),
 								'config': button_config,
 								'click' : function() {
-									var selectedCells = jQuery('.aloha-cell-selected');
-
-									// formating workaround for table plugin
-									if ( selectedCells.length > 0 ) {
-										var cellMarkupCounter = 0;
-										selectedCells.each( function () {
-											var cellContent = jQuery(this).find('div'),
-												cellMarkup = cellContent.find(button);
-										
-											if ( cellMarkup.length > 0 ) {
-												// unwrap all found markup text
-												// <td><b>text</b> foo <b>bar</b></td>
-												// and wrap the whole contents of the <td> into <b> tags
-												// <td><b>text foo bar</b></td>
-												cellMarkup.contents().unwrap();
-												cellMarkupCounter++;
-											}
-											cellContent.contents().wrap('<'+button+'></'+button+'>');
-										});
-
-										// remove all markup if all cells have markup
-										if ( cellMarkupCounter == selectedCells.length ) {
-											selectedCells.find(button).contents().unwrap();
-										}
-										return false;
-									}
-									// formating workaround for table plugin
 									that.changeMarkup( 'div', this.config );
 								}
 							});
@@ -221,33 +196,6 @@ define([
 								'iconClass' : 'aloha-button aloha-button-' + button,
 								'wide' : true,
 								'click' : function() {
-									var selectedCells = jQuery('.aloha-cell-selected');
-
-									// formating workaround for table plugin
-									if ( selectedCells.length > 0 ) {
-										var cellMarkupCounter = 0;
-										selectedCells.each( function () {
-											var cellContent = jQuery(this).find('div'),
-												cellMarkup = cellContent.find(button);
-										
-											if ( cellMarkup.length > 0 ) {
-												// unwrap all found markup text
-												// <td><b>text</b> foo <b>bar</b></td>
-												// and wrap the whole contents of the <td> into <b> tags
-												// <td><b>text foo bar</b></td>
-												cellMarkup.contents().unwrap();
-												cellMarkupCounter++;
-											}
-											cellContent.contents().wrap('<'+button+'></'+button+'>');
-										});
-
-										// remove all markup if all cells have markup
-										if ( cellMarkupCounter == selectedCells.length ) {
-											selectedCells.find(button).contents().unwrap();
-										}
-										return false;
-									}
-									// formating workaround for table plugin
 									that.removeFormat();
 								}
 							});
